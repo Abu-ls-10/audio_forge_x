@@ -1,6 +1,6 @@
 # AudioForgeX
 
-AudioForgeX is an open-source platform for audio manipulation and mixing, currently in progress.
+AudioForgeX is a platform for audio manipulation and mixing, currently in progress.
 
 ## Features
 
