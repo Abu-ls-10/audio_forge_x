@@ -17,3 +17,7 @@ We welcome contributions from the community. If you'd like to contribute to Audi
 ## Acknowledgements
 
 Special thanks to all contributors and supporters of the AudioForgeX project.
+
+## Note
+
+This project is currently a work in progress.
