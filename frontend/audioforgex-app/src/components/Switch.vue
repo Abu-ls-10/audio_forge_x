@@ -37,27 +37,27 @@
   }
   
   .stick-shift-switch {
-    width: 30px;
-    height: 80px; /* Increased the height for a vertical design */
+    width: 50px;
+    height: 250px; /* Increased the height for a vertical design */
     background-color: #333;
     border-radius: 50px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px;
+    align-items:start;
+    justify-content: center;
+    padding: 20px 5px 20px 5px;
     cursor: pointer;
   }
   
   .stick-shift {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     background-color: #5f27cd;
     border-radius: 50%;
     transition: 0.3s;
   }
   
   .stick-shift.active {
-    transform: translateY(50px); /* Moves the switch when active */
+    transform: translateY(220px); /* Moves the switch when active */
     background-color: #ff5f5f; /* Optional: change color when active */
   }
   </style>

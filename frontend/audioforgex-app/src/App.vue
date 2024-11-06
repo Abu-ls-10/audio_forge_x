@@ -17,7 +17,6 @@
           :step="10"
           v-model="echoDelay"
         />
-        <!-- Using the Switch component for Remove Vocals -->
         <Switch v-model="removeVocals" />
         <Slider
           label="Pitch Shift"
