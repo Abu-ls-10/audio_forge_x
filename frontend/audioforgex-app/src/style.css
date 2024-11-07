@@ -24,7 +24,10 @@ body {
 
 /* Sliders */
 .slider {
-  background: linear-gradient(90deg, #6a0dad, #00f1ff); /* Purple to blue */
+  /* background: linear-gradient(90deg, #6a0dad, #00f1ff); /* Purple to blue */
+  background: #333;
+  border-radius: 50px;
+  overflow: hidden;
 }
 
 .slider::-webkit-slider-thumb {
