@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Orbitron', 'system-ui', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -17,7 +17,7 @@
 body {
   background-color: #121212;
   color: white;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -34,20 +34,17 @@ body {
   background: #e63946; /* Red for active thumb */
 }
 
-.slider-container label {
-  color: #f1fa8c; /* Sci-Fi yellow-green for labels */
-}
-
 /* Panel */
 .file-panel {
   background: #2b2d42;
-  border-radius: 10px;
+  /* border-radius: 20px; */
   padding: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  height: 360px;
 }
 
 .file-panel h2 {
-  color: #9ae3d5;
+  color: #00f1ff;
 }
 
 input[type="file"] {
@@ -57,4 +54,6 @@ input[type="file"] {
   border-radius: 5px;
   border: none;
   margin-top: 10px;
+  font-family: 'Orbitron', 'sans-serif';
+  width: 16em;
 }
