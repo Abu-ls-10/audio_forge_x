@@ -41,7 +41,7 @@ export default {
       if (this.selectedFile) {
         // Prepare the data to send to the backend
         const data = {
-          remvocals: this.removeVocals,
+          remVocals: this.removeVocals,
           volumeScale: this.volume,
           echoDelay: this.echoDelay,
           pitchShift: this.pitchShift,

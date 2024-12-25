@@ -17,9 +17,9 @@
       <div class="sliders">
         <Slider
           label="Volume Scale"
-          :min="0"
-          :max="50"
-          :step="1"
+          :min="0.5"
+          :max="5"
+          :step="0.1"
           v-model="volume"
         />
         <Slider
