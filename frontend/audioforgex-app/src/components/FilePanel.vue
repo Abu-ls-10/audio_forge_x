@@ -13,6 +13,8 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
+
 export default {
   props: {
     removeVocals: Boolean,
@@ -39,18 +41,19 @@ export default {
     },
     onMixClick() {
       if (this.selectedFile) {
-        // Prepare the data to send to the backend
-        const data = {
-          remVocals: this.removeVocals,
-          volumeScale: this.volume,
-          echoDelay: this.echoDelay,
-          pitchShift: this.pitchShift,
-        };
+        // Prepare the data to send to the backend (removing vocals, volume, echo, pitch, etc.)
+        const data = new FormData();
+        data.append('file', this.selectedFile);
+        data.append('remVocals', this.removeVocals ? '1' : '0'); // Convert Boolean to integer
+        data.append('volumeScale', this.volume.toString());
+        data.append('echoDelay', this.echoDelay.toString());
+        data.append('pitchShift', this.pitchShift.toString());
 
         // Example backend API call
-        this.$axios.post('your-backend-endpoint', data)
+        axios.post('/process_file', data)
           .then(response => {
             console.log('File mixed successfully:', response);
+            // Optionally handle the processed file (e.g., download or play it)
           })
           .catch(error => {
             console.error('Error mixing file:', error);

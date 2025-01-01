@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify, send_file
+from flask_cors import CORS
 import os
 from werkzeug.utils import secure_filename
 import audioforgex
 
 app = Flask(__name__)
+CORS(app)
+
 UPLOAD_FOLDER = 'uploads'
 PROCESSED_FOLDER = 'processed'
 
