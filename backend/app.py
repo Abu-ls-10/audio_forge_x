@@ -17,6 +17,7 @@ os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 # Flask route to process the file
 @app.route('/process_file', methods=['POST'])
 def process_file():
+    print("RECEIVED POST Request")
     try:
         # Retrieve parameters from the request
         remove_vocals_flag = request.form.get('remVocals', type=int, default=0)
@@ -49,10 +50,12 @@ def process_file():
         result_filename = base_name
 
         # Apply processing
+        print("PROCESSING...")
         if remove_vocals_flag:
             result_filename += "_rm"
             processed_path = os.path.join(PROCESSED_FOLDER, f"{result_filename}{ext}")
             audioforgex.remove_vocals(canonical_path, processed_path)
+            print("Removed vocals")
             canonical_path = processed_path
 
         if pitch_shift != 1.0:
@@ -60,6 +63,7 @@ def process_file():
             result_filename += f"_{pitch_vals}"
             processed_path = os.path.join(PROCESSED_FOLDER, f"{result_filename}{ext}")
             audioforgex.shift_pitch(canonical_path, processed_path, pitch_shift)
+            print("Shifted pitch")
             canonical_path = processed_path
 
         if echo_delay > 0 or volume_scale != 1.0:
@@ -67,9 +71,12 @@ def process_file():
             result_filename += f"_{volume_str}v_{echo_delay}d"
             processed_path = os.path.join(PROCESSED_FOLDER, f"{result_filename}{ext}")
             audioforgex.add_echo(canonical_path, processed_path, echo_delay, volume_scale)
+            print("Added echo delay and volume scale")
+
+        print(f"SENDING processed file: {processed_path}, with filename: {result_filename}.wav to frontend")
 
         # Send the processed file back
-        return send_file(processed_path, as_attachment=True)
+        return send_file(processed_path, as_attachment=True, download_name=(result_filename + ".wav"))
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500

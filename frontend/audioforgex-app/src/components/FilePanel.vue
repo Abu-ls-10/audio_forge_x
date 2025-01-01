@@ -15,6 +15,29 @@
 <script lang="ts">
 import axios from 'axios';
 
+function generateFileName(selectedFile: File, removeVocals: boolean, volume: number, delay: number, pitchShift: number): string {
+    // Initialize the filename with the selected file name
+    let fileName = selectedFile.name.replace(/\.[^/.]+$/, '');
+
+    // Apply "_rm" if vocals are to be removed
+    if (removeVocals) {
+        fileName += "_rm";
+    }
+
+    // Add pitch shift "_{a}p{b}"
+    const pitchShiftBeforeDecimal = Math.floor(pitchShift);
+    const pitchShiftAfterDecimal = Math.round((pitchShift - pitchShiftBeforeDecimal) * 10);
+    fileName += `_${pitchShiftBeforeDecimal}p${pitchShiftAfterDecimal}`;
+
+    // Add volume and delay "_{a}p{b}v_{x}d"
+    const volumeBeforeDecimal = Math.floor(volume);
+    const volumeAfterDecimal = Math.round((volume - volumeBeforeDecimal) * 10);
+    fileName += `_${volumeBeforeDecimal}p${volumeAfterDecimal}v_${delay}d`;
+
+    // Return the generated filename
+    return fileName += ".wav";
+}
+
 export default {
   props: {
     removeVocals: Boolean,
@@ -41,6 +64,9 @@ export default {
     },
     onMixClick() {
       if (this.selectedFile) {
+        // Log processing vals
+        console.log("Processing values:", this.volume, this.echoDelay, this.removeVocals, this.pitchShift);
+
         // Prepare the data to send to the backend (removing vocals, volume, echo, pitch, etc.)
         const data = new FormData();
         data.append('file', this.selectedFile);
@@ -50,10 +76,35 @@ export default {
         data.append('pitchShift', this.pitchShift.toString());
 
         // Example backend API call
-        axios.post('/process_file', data)
+        axios.post('http://localhost:5000/process_file', data)
           .then(response => {
             console.log('File mixed successfully:', response);
             // Optionally handle the processed file (e.g., download or play it)
+
+            // Extract the filename from the Content-Disposition header if available
+            const contentDisposition = response.headers['content-disposition'];
+
+            // Log the Content-Disposition header to check if it's present and formatted correctly
+            console.log('Content-Disposition:', contentDisposition);
+
+            let processed_filename = generateFileName(this.selectedFile, this.removeVocals, this.volume, this.echoDelay, this.pitchShift);
+            const filenameMatch = contentDisposition?.match(/filename="([^"]+)"/);
+            const filename = filenameMatch ? filenameMatch[1] : processed_filename;
+
+            // Create a URL for the returned blob
+            const blob = new Blob([response.data], { type: 'audio/wav' });
+            const downloadUrl = URL.createObjectURL(blob);
+
+            // Create a link element, set its href to the blob URL, and trigger a click
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = filename; // Use the extracted filename
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Revoke the object URL to free memory
+            URL.revokeObjectURL(downloadUrl);
           })
           .catch(error => {
             console.error('Error mixing file:', error);

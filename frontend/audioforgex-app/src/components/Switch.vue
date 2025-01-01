@@ -17,7 +17,7 @@
     methods: {
       toggleVocals() {
         this.removeVocals = !this.removeVocals; // Toggle the state
-        this.$emit('update:removeVocals', this.removeVocals); // Emit updated value to parent
+        this.$emit('update:modelValue', this.removeVocals); // Emit updated value to parent
       },
     },
   };

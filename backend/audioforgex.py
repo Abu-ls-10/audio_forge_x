@@ -14,14 +14,14 @@ addecho_lib = CDLL(os.path.join(base_dir, 'audio_mixing', 'addecho', 'addecho.so
 shiftpitch_lib = CDLL(os.path.join(base_dir, 'audio_mixing', 'shift_pitch', 'shift_pitch.so'))
 
 # Wrapper functions using ctypes
-def add_echo(input_file, output_file, delay, volume_scale=1.0):
+def add_echo(input_file, output_file, delay=0, volume_scale=1.0):
     """Wrapper for addecho C program."""
     addecho_lib.add_echo.argtypes = [c_char_p, c_char_p, c_int, c_float]
     addecho_lib.add_echo.restype = c_int
     result = addecho_lib.add_echo(input_file.encode('utf-8'), 
                                   output_file.encode('utf-8'), 
                                   delay, 
-                                  float(volume_scale))
+                                  volume_scale)
     if result != 0:
         raise RuntimeError("Error adding echo to the file.")
 
@@ -120,13 +120,15 @@ def convert_to_canonical(input_path, output_path, target_rate=44100):
 
 # Example usage
 if __name__ == "__main__":
-    input_file = "backend/audios/audio.wav"
+    input_file = "sample_audios/cartoon.wav"
     file_name = os.path.splitext(os.path.basename(input_file))[0]
-    output_file = "backend/audios/" + file_name + "_canonical.wav"
+    output_file = file_name + "_20000d2v.wav"
 
-    # Check if the input file is canonical
-    if is_canonical(input_file):
-        print("The file is already in canonical form.")
-    else:
-        print("The file is not in canonical form. Converting...")
-        convert_to_canonical(input_file, output_file)
+    # # Check if the input file is canonical
+    # if is_canonical(input_file):
+    #     print("The file is already in canonical form.")
+    # else:
+    #     print("The file is not in canonical form. Converting...")
+    #     convert_to_canonical(input_file, output_file)
+    
+    add_echo(input_file, output_file, 20000, 2)

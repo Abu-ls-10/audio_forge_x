@@ -4,10 +4,25 @@
 
 #define HEADER_SIZE 44
 
-void shift_pitch(FILE *input, FILE *output, float pitch_factor) {
+int shift_pitch(const char *src_file_name, const char *dest_file_name, float pitch_factor) {
+    FILE *src_file, *dest_file;
+
+    FILE *input = fopen(src_file_name, "rb");
+    if (input == NULL) {
+        perror("Error opening input file");
+        return 1;
+    }
+
+    FILE *output = fopen(dest_file_name, "wb");
+    if (output == NULL) {
+        perror("Error opening output file");
+        fclose(input);
+        return 1;
+    }
+
     if (pitch_factor <= 0) {
         fprintf(stderr, "Error: Pitch factor must be positive.\n");
-        return;
+        return 0;
     }
 
     // Read the WAV header
@@ -29,6 +44,11 @@ void shift_pitch(FILE *input, FILE *output, float pitch_factor) {
     while ((bytesRead = fread(buffer, sizeof(unsigned char), sizeof(buffer), input)) > 0) {
         fwrite(buffer, sizeof(unsigned char), bytesRead, output);
     }
+
+    fclose(input);
+    fclose(output);
+
+    return 0;
 }
 
 int main(int argc, char *argv[]) {
@@ -37,23 +57,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    FILE *input = fopen(argv[1], "rb");
-    if (input == NULL) {
-        perror("Error opening input file");
-        return 1;
-    }
-
-    FILE *output = fopen(argv[2], "wb");
-    if (output == NULL) {
-        perror("Error opening output file");
-        fclose(input);
-        return 1;
-    }
-
     float pitch_factor = atof(argv[3]);
-    shift_pitch(input, output, pitch_factor);
-
-    fclose(input);
-    fclose(output);
+    shift_pitch(argv[1], argv[2], pitch_factor);
     return 0;
 }
