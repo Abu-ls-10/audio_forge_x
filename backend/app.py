@@ -16,7 +16,7 @@ os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 
 @app.route('/sample_audios/<filename>')
 def serve_sample_audio(filename):
-    return send_from_directory(app.static_folder, filename)
+    return send_from_directory(app.static_folder, filename, mimetype='audio/wav')
 
 # Flask route to process the file
 @app.route('/process_file', methods=['POST'])
