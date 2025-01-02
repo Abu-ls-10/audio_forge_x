@@ -1,10 +1,10 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, send_from_directory
 from flask_cors import CORS
 import os
 from werkzeug.utils import secure_filename
 import audioforgex
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='sample_audios')
 CORS(app)
 
 UPLOAD_FOLDER = 'uploads'
@@ -13,6 +13,10 @@ PROCESSED_FOLDER = 'processed'
 # Ensure directories exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
+
+@app.route('/sample_audios/<filename>')
+def serve_sample_audio(filename):
+    return send_from_directory(app.static_folder, filename)
 
 # Flask route to process the file
 @app.route('/process_file', methods=['POST'])

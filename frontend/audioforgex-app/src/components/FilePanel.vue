@@ -1,9 +1,9 @@
 <template>
   <div class="file-panel">
     <h2>Sample Files</h2>
-    <ul>
-      <li v-for="file in sampleFiles" :key="file">{{ file }}</li>
-    </ul>
+    <div v-for="file in sampleFiles" :key="file" class="file-option" @click="selectFile(file)">
+      {{ file }}
+    </div>
   
     <input type="file" @change="onFileUpload" accept=".wav" />
     
@@ -47,11 +47,19 @@ export default {
   },
   data() {
     return {
-      sampleFiles: ['cartoon.wav', 'adventure.wav', 'music.wav'],
+      sampleFiles: ['cartoon.wav', 'door.wav', 'music.wav'],
       selectedFile: null,
     };
   },
   methods: {
+    selectFile(filename) {
+      const file = `http://localhost:5000/sample_audios/${filename}`;
+      if (file && file.type === 'audio/wav') {
+        // Handle file upload (e.g., send to backend or process)
+        this.selectedFile = file;
+        console.log('File selected:', filename);
+      }
+    },
     onFileUpload(event: Event) {
       const file = (event.target as HTMLInputElement).files?.[0];
       if (file && file.type === 'audio/wav') {
@@ -75,8 +83,8 @@ export default {
         data.append('echoDelay', this.echoDelay.toString());
         data.append('pitchShift', this.pitchShift.toString());
 
-        // Example backend API call
-        axios.post('http://localhost:5000/process_file', data)
+        // Backend API request
+        axios.post('http://localhost:5000/process_file', data, { responseType: 'arraybuffer' })
           .then(response => {
             console.log('File mixed successfully:', response);
             // Optionally handle the processed file (e.g., download or play it)
@@ -85,7 +93,7 @@ export default {
             const contentDisposition = response.headers['content-disposition'];
 
             // Log the Content-Disposition header to check if it's present and formatted correctly
-            console.log('Content-Disposition:', contentDisposition);
+            // console.log('Content-Disposition:', contentDisposition);
 
             let processed_filename = generateFileName(this.selectedFile, this.removeVocals, this.volume, this.echoDelay, this.pitchShift);
             const filenameMatch = contentDisposition?.match(/filename="([^"]+)"/);
@@ -129,6 +137,22 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+}
+
+.file-option {
+  cursor: pointer;
+  padding: 8px;
+  margin: 5px;
+  background-color: #333;
+  border-radius: 5px;
+  display: inline-block;
+  text-align: center;
+  width: calc(100% - 20px); /* Make width smaller than the parent by adjusting the padding */
+  box-sizing: border-box;  /* Ensures padding and border are included in width */
+}
+
+.file-option:hover {
+  background-color: #444;
 }
 
 .mix-button {
