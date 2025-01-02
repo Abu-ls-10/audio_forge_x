@@ -2,7 +2,6 @@
 
 **AudioForgeX** is a web-based audio processing platform designed to empower users with the ability to mix, edit, and enhance audio files effortlessly. This project combines the power of low-level C programming for high-performance audio processing with the flexibility of modern web technologies.
 
----
 
 ## Table of Contents
 
@@ -18,7 +17,6 @@
 8. [Acknowledgements](#acknowledgements)
 9. [Contact](#contact)
 
----
 
 ## Overview
 
@@ -26,7 +24,6 @@
 
 This project aims to simplify audio editing by allowing users to upload WAV files, apply effects like echo, vocal removal, and pitch shifting, and download the processed file—all through an interactive web interface. With plans for Docker-based deployment, AudioForgeX promises cross-platform compatibility and ease of setup, making professional-grade audio editing accessible to everyone.
 
----
 
 ## Features
 
@@ -54,7 +51,6 @@ This project aims to simplify audio editing by allowing users to upload WAV file
 - **Docker Compatibility (Coming Soon)**:
   - Simplified deployment through Docker containers for cross-platform usability.
 
----
 
 ## Installation
 
@@ -64,7 +60,6 @@ This project aims to simplify audio editing by allowing users to upload WAV file
 - **Python 3.10+**
 - **npm** (for the frontend)
 
----
 
 ### Steps
 
@@ -106,7 +101,6 @@ This project aims to simplify audio editing by allowing users to upload WAV file
      npm run dev
      ```
 
----
 
 ## Usage
 
@@ -115,7 +109,6 @@ This project aims to simplify audio editing by allowing users to upload WAV file
 3. Upload a WAV file, configure audio effects, and click "Mix!".
 4. Download the processed audio file directly.
 
----
 
 ## Roadmap
 
@@ -125,7 +118,6 @@ This project aims to simplify audio editing by allowing users to upload WAV file
 - [x] Frontend UI with Vue.js and TypeScript.
 - [ ] Add Docker support for containerized deployment.
 
----
 
 ## Technologies Used
 
@@ -136,7 +128,6 @@ This project aims to simplify audio editing by allowing users to upload WAV file
 - **TypeScript**: Strongly-typed programming for the frontend.
 - **Docker** (planned): Simplified deployment and cross-platform compatibility.
 
----
 
 ## Project Structure
 
@@ -164,7 +155,6 @@ audio_forge_x/
 └── ...
 ```
 
----
 
 ## Acknowledgements
 
