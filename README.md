@@ -4,6 +4,30 @@
 
 ---
 
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Installation](#installation)
+   - [Prerequisites](#prerequisites)
+   - [Steps](#steps)
+4. [Usage](#usage)
+5. [Roadmap](#roadmap)
+6. [Technologies Used](#technologies-used)
+7. [Project Structure](#project-structure)
+8. [Acknowledgements](#acknowledgements)
+9. [Contact](#contact)
+
+---
+
+## Overview
+
+**AudioForgeX** is a cutting-edge web-based audio processing platform that empowers users to apply advanced audio transformations with ease. It leverages the power of C for efficient audio processing, Python for seamless integration, and Vue.js with TypeScript for a user-friendly frontend.
+
+This project aims to simplify audio editing by allowing users to upload WAV files, apply effects like echo, vocal removal, and pitch shifting, and download the processed file—all through an interactive web interface. With plans for Docker-based deployment, AudioForgeX promises cross-platform compatibility and ease of setup, making professional-grade audio editing accessible to everyone.
+
+---
+
 ## Features
 
 - **Audio Processing with C**:
@@ -51,16 +75,20 @@
    ```
 
 2. **Backend Setup**:
-   - **Install Python Dependencies**:
+   - Navigate to the `backend` directory:
+     ```bash
+     cd backend
+     ```
+   - Install Python Dependencies:
      ```bash
      pip install -r requirements.txt
      ```
-   - **Run Flask Backend**:
+   - Run Flask Backend:
      ```bash
      python3 app.py
      ```
 
-3. **Frontend Setup**:
+4. **Frontend Setup**:
    - Navigate to the `frontend` directory:
      ```bash
      cd frontend
@@ -116,9 +144,13 @@
 audio_forge_x/
 │
 ├── backend/
-│   ├── c_code/
-│   │   └── libaudio.so           # Compiled shared library (Linux)
+│   ├── audio_mixing/            # Compiled shared library for all features(.so format)
+│   │   ├── addecho
+│   │   ├── adjust_tempo
+│   │   ├── remvocals
+│   │   └── shift_pitch          
 │   ├── app.py                   # Flask backend
+│   ├── audioforgex.py           # Ctypes logic for CDLLs
 │   └── requirements.txt         # Python dependencies
 │
 ├── frontend/
@@ -134,30 +166,11 @@ audio_forge_x/
 
 ---
 
-## Contributing
+## Acknowledgements
 
-We welcome contributions! Please follow these steps:
-
-1. Fork this repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add your message here"
-   ```
-4. Push to your branch:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. Open a Pull Request.
-6. 
----
+Special thanks to all contributors and supporters of the AudioForgeX project.
 
 ## Contact
 
-For any questions or issues, please reach out to:
-
-- **Email**: [your-email@example.com](mailto:your-email@example.com)
-- **GitHub**: [your-username](https://github.com/your-username)
+For any questions or feedback please reach out to:
+- **GitHub**: [Abu-ls-10](https://github.com/Abu-ls-10) (me)
