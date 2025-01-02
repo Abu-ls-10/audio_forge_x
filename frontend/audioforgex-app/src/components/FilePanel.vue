@@ -1,8 +1,8 @@
 <template>
   <div class="file-panel">
     <h2>Sample Files</h2>
-    <div v-for="file in sampleFiles" :key="file" class="file-option" @click="selectFile(file)">
-      {{ file }}
+    <div v-for="filename in sampleFiles" :key="filename" class="file-option" @click="selectFile(filename)">
+      {{ filename }}
     </div>
   
     <input type="file" @change="onFileUpload" accept=".wav" />
@@ -47,17 +47,38 @@ export default {
   },
   data() {
     return {
-      sampleFiles: ['cartoon.wav', 'door.wav', 'music.wav'],
+      sampleFiles: ['cartoon.wav', 'door.wav', 'audio.wav'],
       selectedFile: null,
     };
   },
   methods: {
-    selectFile(filename) {
-      const file = `http://localhost:5000/sample_audios/${filename}`;
-      if (file && file.type === 'audio/wav') {
-        // Handle file upload (e.g., send to backend or process)
-        this.selectedFile = file;
-        console.log('File selected:', filename);
+    async selectFile(filename) {
+      const fileUrl = `http://localhost:5000/sample_audios/${filename}`;
+      try {
+        // Fetch the file from the URL
+        const response = await fetch(fileUrl);
+
+        // Check if the response is OK
+        if (!response.ok) {
+          throw new Error(`Failed to fetch file: ${response.statusText}`);
+        }
+
+        // Convert the response into a Blob
+        const blob = await response.blob();
+
+        // Ensure the file is a WAV file
+        if (blob.type === 'audio/wav') {
+          // Create a File object
+          const file = new File([blob], filename, { type: blob.type });
+
+          // Set the selected file
+          this.selectedFile = file;
+          console.log('File selected:', file.name);
+        } else {
+          console.error('Selected file is not an audio/wav file');
+        }
+      } catch (error) {
+        console.error('Error selecting file:', error);
       }
     },
     onFileUpload(event: Event) {

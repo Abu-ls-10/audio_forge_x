@@ -56,3 +56,11 @@ yarn-error.log
 node_modules/
 bower_components/
 *.lock
+
+# Ignore all files in backend/uploads but keep the folder
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Ignore all files in backend/processed but keep the folder
+backend/processed/*
+!backend/processed/.gitkeep
