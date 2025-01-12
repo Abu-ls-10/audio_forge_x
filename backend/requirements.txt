@@ -1,0 +1,8 @@
+Flask==2.3.2                # Web framework for the backend
+Flask-CORS==3.0.10          # Cross-Origin Resource Sharing for API
+numpy==1.24.3               # Numerical computations
+scipy==1.10.1               # Scientific computing, if required for audio processing
+wave==0.0.2                 # For working with WAV files
+PyAudio==0.2.13             # Optional: For audio streaming
+soundfile==0.12.1           # Reading and writing sound files
+ctypeslib==2.0.2            # Helper library for using ctypes
