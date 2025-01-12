@@ -48,7 +48,7 @@ This project aims to simplify audio editing by allowing users to upload WAV file
   - Processes and returns enhanced audio files.
   - Streamlined integration with C libraries via Python.
 
-- **Docker Compatibility (Coming Soon)**:
+- **Docker Compatibility**:
   - Simplified deployment through Docker containers for cross-platform usability.
 
 
@@ -57,8 +57,9 @@ This project aims to simplify audio editing by allowing users to upload WAV file
 ### Prerequisites
 
 - **Linux OS** (or Windows with WSL)
-- **Python 3.10+**
+- **Python 3.10+** (for backend)
 - **npm** (for the frontend)
+- **Docker** (for running Dockerfile)
 
 
 ### Steps
@@ -116,7 +117,7 @@ This project aims to simplify audio editing by allowing users to upload WAV file
 - [x] Integration of C libraries with Python.
 - [x] Flask API for backend communication.
 - [x] Frontend UI with Vue.js and TypeScript.
-- [ ] Add Docker support for containerized deployment.
+- [x] Add Docker support for containerized deployment.
 
 
 ## Technologies Used
@@ -150,7 +151,7 @@ audio_forge_x/
 │   ├── package.json             # Frontend dependencies
 │   └── ...
 │
-├── Dockerfile (coming soon)
+├── Dockerfile
 ├── README.md                    # Project documentation
 └── ...
 ```
