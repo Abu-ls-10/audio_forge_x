@@ -40,19 +40,32 @@ function generateFileName(selectedFile: File, removeVocals: boolean, volume: num
 
 export default {
   props: {
-    removeVocals: Boolean,
-    volume: Number,
-    echoDelay: Number,
-    pitchShift: Number,
+    removeVocals: {
+      type: Boolean,
+      required: true,
+    },
+    volume: {
+      type: Number,
+      required: true,
+    },
+    echoDelay: {
+      type: Number,
+      required: true,
+    },
+    pitchShift: {
+      type: Number,
+      required: true,
+    },
   },
+
   data() {
     return {
       sampleFiles: ['cartoon.wav', 'door.wav', 'audio.wav'],
-      selectedFile: null,
+      selectedFile: null as File | null,
     };
   },
   methods: {
-    async selectFile(filename) {
+    async selectFile(filename: string) {
       const fileUrl = `http://localhost:5000/sample_audios/${filename}`;
       try {
         // Fetch the file from the URL
@@ -116,7 +129,7 @@ export default {
             // Log the Content-Disposition header to check if it's present and formatted correctly
             // console.log('Content-Disposition:', contentDisposition);
 
-            let processed_filename = generateFileName(this.selectedFile, this.removeVocals, this.volume, this.echoDelay, this.pitchShift);
+            let processed_filename = generateFileName(this.selectedFile!, this.removeVocals, this.volume, this.echoDelay, this.pitchShift);
             const filenameMatch = contentDisposition?.match(/filename="([^"]+)"/);
             const filename = filenameMatch ? filenameMatch[1] : processed_filename;
 

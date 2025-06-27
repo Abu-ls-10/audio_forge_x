@@ -21,12 +21,28 @@
 <script lang="ts">
 export default {
   props: {
-    label: String,
-    min: Number,
-    max: Number,
-    step: Number,
-    modelValue: Number, // Current value of the slider
+    label: {
+      type: String,
+      required: true,
+    },
+    min: {
+      type: Number,
+      required: true,
+    },
+    max: {
+      type: Number,
+      required: true,
+    },
+    step: {
+      type: Number,
+      required: true,
+    },
+    modelValue: {
+      type: Number,
+      required: true,
+    },
   },
+
   data() {
     return {
       initialValue: this.modelValue, // Store the initial/default value
@@ -35,7 +51,7 @@ export default {
   computed: {
     trackBackground() {
       const minPercent = ((this.min - this.min) / (this.max - this.min)) * 100;
-      const maxPercent = ((this.max - this.min) / (this.max - this.min)) * 100;
+      // const maxPercent = ((this.max - this.min) / (this.max - this.min)) * 100;
       const initialPercent = ((this.initialValue - this.min) / (this.max - this.min)) * 100;
       const currentPercent = ((this.modelValue - this.min) / (this.max - this.min)) * 100;
 
